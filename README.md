@@ -118,7 +118,7 @@ git clone https://github.com/tixset/encryptionWebChat
 cd encryptionWebChat
 chmod +x start_server.sh
 cp -a www/* /var/www/html/
-`'
+```
 ## Starting the server
 It is very easy to start the server part of the chat.
 ``` bash
