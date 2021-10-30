@@ -81,8 +81,8 @@ function scroll() { // Прокрутка чата вниз
 	get('chat').scrollTop = get('chat').scrollHeight;
 }
 function addToChat(mclass, text, cb = false) { // Добавление строки в чат
-		(cb) ? cbText = "<div class='cb'></div>" : cbText = "";
-		get('chat').innerHTML += "<div><div class='" + mclass + "'>" + text + "<div class='time'>" + getFormattedDate() + "</div></div></div>" + cbText;
+	(cb) ? cbText = "<div class='cb'></div>" : cbText = "";
+	get('chat').innerHTML += "<div><div class='" + mclass + "'>" + text + "<div class='time'>" + getFormattedDate() + "</div></div></div>" + cbText;
 }
 window.onload = function() { // Функция выполняется после полной загрузки страницы
 	// Генерируем имя и устанавливаем остальные параметры
