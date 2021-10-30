@@ -72,9 +72,9 @@ body {
 	width:70%;
 }
 #chat .cb:after {
-  content: "";
-  clear: both;
-  display:table;
+	content: "";
+	clear: both;
+	display:table;
 }
 #chat .time {
 	display: inline;
