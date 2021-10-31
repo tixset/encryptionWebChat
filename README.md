@@ -48,6 +48,9 @@ cd encryptionWebChat
 chmod +x start_server.sh
 cp -a www/* /var/www/html/
 ```
+
+Если веб-интерфейс Вашего чата и серверный скрипт расположены не на одной и той же машине, то не забудьте в js-скрипте "js/script.js" поменять значение переменной "soketHost" на ip-адрес вашего сервера.
+
 ## Запуск сервера
 Запустить серверную часть чата очень просто.
 ``` bash
@@ -120,6 +123,9 @@ cd encryptionWebChat
 chmod +x start_server.sh
 cp -a www/* /var/www/html/
 ```
+
+If the web interface of your chat and the server script are not located on the same machine, then do not forget in the js-script "js/script.js" change the value of the variable "Sokethost" to the ip address of your server.
+
 ## Starting the server
 It is very easy to start the server part of the chat.
 ``` bash
