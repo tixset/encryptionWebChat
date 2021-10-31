@@ -6,6 +6,7 @@ const soketHost = '185.98.86.127'; // Адрес сервера
 const soketPort = 5555; // Порт сервера
 const reConnectCount = 10; // Количество попыток переподключения
 const reConnectTimeout = 3; // Интервал между попытками переподключения в секундах
+const playSounds = true; // Воспроизводить звуки при входе пользователей в чат и при входящем сообшении
 
 var ws;
 var mainName;
@@ -23,6 +24,9 @@ var newKeySend = false;
 var newKeySender = "";
 var publicKeysCount = 0;
 var sendKeysCount = 0;
+
+var soundMessage = new Audio('sound/message.mp3');
+var soundOnline = new Audio('sound/online.mp3');
 
 function getRandStr() {
 	return Math.random().toString(36).slice(-10);
@@ -95,6 +99,8 @@ window.onload = function() { // Функция выполняется после
 	get('name').innerHTML = mainName;
 	mainRoom = get('room').value;
 	mainKey = get('key').value;
+
+	
 	// Фикс нажатия кнопки enter в чате на мобильных устройствах.
 	var ta = get('text');
 	var taVal = ta.value;
@@ -134,6 +140,9 @@ function connect(reConn) {
 			} else {
 				countRoom++;
 				addToChat('w', "Пользователь " + '"' + msg[2] + '"' + " вошел в комнату - " + mainRoom);
+				if (playSounds) {
+					soundOnline.play();
+				}
 			}
 			scroll();
 		}
@@ -216,6 +225,9 @@ function connect(reConn) {
 							addToChat('mt', "<b>Вы</b>: " + decodeText, true);
 						} else {
 							addToChat('mr', "<b>" + msg[2] + "</b>: " + decodeText, true);
+							if (playSounds) {
+								soundMessage.play();
+							}
 						}
 					}
 				}
