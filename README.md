@@ -7,6 +7,8 @@
 
 Чат решено было сделать как можно более анонимным, для этого я отказался от бэкенда и решил в качестве сервера использовать сокет.
 
+Демка тут: http://185.98.86.127/encryptionWebChat/
+
 Имя пользователя для чата генерится рандомно, его можно сменить в дальнейшем на такое-же рандомное, для авторизации в чате достаточно только имени и названия комнаты.
 
 Серверный скрипт не записывает ни куда ни какие данные, данные в нем хранятся непосредственно в переменных.
@@ -81,6 +83,8 @@ To demonstrate the work of the Vigenere Cipher and the Diffie-Hellman key exchan
 * *Learn more about the Diffie-Hellman protocol: https://github.com/tixset/DiffieHellmanProtocol*
 
 It was decided to make the chat as anonymous as possible, for this I abandoned the backend and decided to use a socket as a server.
+
+Demo here: http://185.98.86.127/encryptionWebChat/
 
 The username for the chat is generated randomly, it can be changed in the future to the same random one, only the name and the name of the room are enough for authorization in the chat.
 
