@@ -54,7 +54,10 @@ body {
 	border-radius: 10px;
 	background: #ddd;
 	word-wrap: break-word;
-	word-break: break-all; 
+	word-break: break-all;
+}
+#chat>div>div a{
+	color:black;
 }
 #chat .n {
 	background: #cae6fc;

@@ -139,7 +139,7 @@ function connect(reConn) {
 				addToChat('n', "Вы вошли в чат, комната - " + mainRoom);
 			} else {
 				countRoom++;
-				addToChat('w', "Пользователь " + '"' + msg[2] + '"' + " вошел в комнату - " + mainRoom);
+				addToChat('w', "Пользователь " + '"<a href="javascript://" onclick="reply(' + "'" + msg[2] + "'" + ');return false;">' + msg[2] + '</a>"' + " вошел в комнату - " + mainRoom);
 				if (playSounds) {
 					soundOnline.play();
 				}
@@ -216,7 +216,10 @@ function connect(reConn) {
 							if (uc[1] == mainName) {
 								newKeys[msg[2]] = code(uc[2], (Number(privateKey) + Number(publicKey)).toString(), false); // Расшифровываем новый ключ шифрования и кладем его в массив
 								clearKeys();
-								addToChat('e', "Пользователь " + '"' + msg[2] + '"' + " предлогает обновить ключ шифрования: <a class='chat-button' href='javascript://' onclick='applyKey(" + '"' + msg[2] + '"' + ");return false;'>Принять</a>"); // Сообщаем пользователю о том что он может применить этот ключ
+								addToChat('e', "Пользователь " + '"<a href="javascript://" onclick="reply(' + "'" + msg[2] + "'" + ');return false;">' + msg[2] + '</a>"' + " предлогает обновить ключ шифрования: <a class='chat-button' href='javascript://' onclick='applyKey(" + '"' + msg[2] + '"' + ");return false;'>Принять</a>"); // Сообщаем пользователю о том что он может применить этот ключ
+								if (playSounds) {
+									soundMessage.play();
+								}
 							}
 						}
 					} else { // Получаем сообщение
@@ -224,7 +227,7 @@ function connect(reConn) {
 						if (msg[2] == mainName) {
 							addToChat('mt', "<b>Вы</b>: " + decodeText, true);
 						} else {
-							addToChat('mr', "<b>" + msg[2] + "</b>: " + decodeText, true);
+							addToChat('mr', "<b><a href='javascript://' onclick='reply(" + '"' + msg[2] + '"' + ");return false;'>" + msg[2] + "</a></b>: " + decodeText, true);
 							if (playSounds) {
 								soundMessage.play();
 							}
@@ -300,6 +303,9 @@ function applyKey(userName) { // Применяем новый ключ шифр
 		get('key').value = mainKey;
 		addToChat('w', "Ключ шифрования изменен.");
 	}
+}
+function reply(name) {
+	get('text').value = name + ", " + get('text').value ;
 }
 function send() { // Отправка сообщений
 	var room = get('room').value;
