@@ -9,13 +9,17 @@
 
 Демка чата тут: http://185.98.86.127/encryptionWebChat/
 
+Чат не использует куки или сессии, при обновлении страницы или ее закрытии происходит логаут.
+
+Сообщения в чате шифруются, с помощью шифрования Виженера, но системные команды, например команда перехода в комнату - не шифруются.
+
+Сервер не участвует в процессе шифрования, алгоритм шифрования полностью реализован на стороне клиента (в браузере), сервер видит только зашифрованный текст, а протокол Диффи-Хеллмана не позволяет серверу его расшифровать.
+
+Серверный скрипт не записывает ни куда ни какие данные, данные в нем находятся непосредственно в переменных, и при разрыве соединения уничтожаются.
+
+При этом из данных на сервере хранятся только хэши коннектов и список комнат. 
+
 Имя пользователя для чата генерится рандомно, его можно сменить в дальнейшем на такое-же рандомное, для авторизации в чате достаточно только имени и названия комнаты.
-
-Серверный скрипт не записывает ни куда ни какие данные, данные в нем хранятся непосредственно в переменных.
-
-При этом в переменных хранятся только хэши коннектов и список комнат.
-
-В чате шифруются, с помощью шифрования Виженера только сообщения, системные команды, например команда перехода в комнату - не шифруются.
 
 По умолчанию при входе в чат установлена комната "MAIN" и ключ шифрования "default", эти данные Вы можете сменить воспользовавшись соответствующими формами ввода.
 
@@ -86,13 +90,17 @@ It was decided to make the chat as anonymous as possible, for this I abandoned t
 
 The chat demo is here: http://185.98.86.127/encryptionWebChat/
 
+The chat does not use cookies or sessions, when the page is refrashed or closed, a logout occurs.
+
+Chat messages are encrypted using the Vision encryption, but system commands, such as the command to enter the room, are not encrypted.
+
+The server does not participate in the encryption process, the encryption algorithm is fully implemented on the client side (in the browser), the server sees only the encrypted text, and the Diffie-Hellman protocol does not allow the server to decrypt it.
+
+The server script does not write any data anywhere, the data in it is directly in variables, and when the connection is terminated, it is destroyed.
+
+At the same time, only hashes of connections and a list of rooms are stored on the server from the data.
+
 The username for the chat is generated randomly, it can be changed in the future to the same random one, only the name and the name of the room are enough for authorization in the chat.
-
-The server script does not write any data anywhere, the data in it is stored directly in variables.
-
-At the same time, only hashes of connections and a list of rooms are stored in variables.
-
-In the chat, only messages, system commands, for example, the command to go to the room, are encrypted, with the help of the Vision encryption, are not encrypted.
 
 By default, when entering the chat, the "MAIN" room and the "default" encryption key are installed, you can change these data using the appropriate input forms.
 
