@@ -54,21 +54,15 @@ tcp_server(undef, $socketPort, sub {
 		# Запретить сторонним клиентам подключаться к Вашему серверу 
         if (length($clientHost) != 0) {
 			my @headersArray = split('\r\n', $chunk);
-			my $originFound = 0;
 			foreach my $el (@headersArray) {
 				my @line = split(': ', $el);
 				if ($line[0] eq "Origin") {
-					$originFound = 1;
 					if ($line[1] ne $clientHost) {
 						printd("Someone else's client: ${host} -> ${line[1]} -> my_server");
 						clientDestroy($handle, $host);
 					}
 					last;
 				}
-			}
-			if ($originFound == 0) { # Если заголовок "Origin" отсутствует
-				printd("Someone else's client: ${host} -> ? -> my_server");
-				clientDestroy($handle, $host);
 			}
 		}
 		$handle->{rbuf} = undef;
@@ -101,7 +95,7 @@ tcp_server(undef, $socketPort, sub {
 	sub {
 		my ($hd) = @_;
 		# Говорим клиентам что надо бы переспросить количество пользователей в комнате
-		# Сервер не знает кто конкретно отключился т.к. не хранит имена, но знает, что количество пользователей в комнате уменьшилось на одного
+		# Cервер не знает кто конкретно отключился т.к. не хранит имена, но знает что количество пользователей в комнате уменьшилось на одного
 		sendInGroup($groups{$hd}, "reAskUserCount:", $frame); 
 		clientDestroy($hd, $host); # Уничтожаем его хэши
 	});
