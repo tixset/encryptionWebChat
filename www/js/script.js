@@ -2,7 +2,7 @@
 	Author: Zelenov Anton <tixset@gmail.com>
 	GitHub: https://github.com/tixset/encryptionWebChat
 */
-const soketHost = '192.168.0.2'; // Адрес сервера
+const soketHost = location.host; // Адрес сервера
 const soketPort = 5555; // Порт сервера
 const reConnectCount = 10; // Количество попыток переподключения
 const reConnectTimeout = 3; // Интервал между попытками переподключения в секундах
