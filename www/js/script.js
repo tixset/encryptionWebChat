@@ -86,7 +86,7 @@ function scroll() { // Прокрутка чата вниз
 }
 function addToChat(mclass, text, cb = false) { // Добавление строки в чат
 	(cb) ? cbText = "<div class='cb'></div>" : cbText = "";
-	get('chat').innerHTML += "<div><div class='" + mclass + "'>" + text + "<div class='time'>" + getFormattedDate() + "</div></div></div>" + cbText;
+	get('chat').innerHTML += "<div><div class='" + mclass + "'><div class='text'>" + text + "</div><div class='time'>" + getFormattedDate() + "</div></div></div>" + cbText;
 }
 window.onbeforeunload = function(e) {
 	var dialogText = "После обновления страницы Вы будете отключены от чата. Продолжить?";
