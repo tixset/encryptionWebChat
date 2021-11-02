@@ -1,3 +1,5 @@
+/*	Author: Zelenov Anton <tixset@gmail.com> */
+/*	GitHub: https://github.com/tixset/encryptionWebChat */
 * {
 	margin: 0;
 	padding: 0;
@@ -52,7 +54,10 @@ body {
 	border-radius: 10px;
 	background: #ddd;
 	word-wrap: break-word;
-	word-break: break-all; 
+	word-break: break-all;
+}
+#chat>div>div a{
+	color:black;
 }
 #chat .n {
 	background: #cae6fc;
@@ -169,4 +174,15 @@ body {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+}
+@media (max-width: 480px) {
+	#panel {
+		font-size: 10pt;
+	}
+	#panel a, #chat #connect-button {
+		width: 100px;
+	}
+	#panel input {
+		min-width:60px;
+	}
 }

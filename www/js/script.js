@@ -2,10 +2,11 @@
 	Author: Zelenov Anton <tixset@gmail.com>
 	GitHub: https://github.com/tixset/encryptionWebChat
 */
-const soketHost = location.host; // Адрес сервера
+const soketHost = '185.98.86.127'; // Адрес сервера
 const soketPort = 5555; // Порт сервера
 const reConnectCount = 10; // Количество попыток переподключения
 const reConnectTimeout = 3; // Интервал между попытками переподключения в секундах
+const playSounds = true; // Воспроизводить звуки при входе пользователей в чат и при входящем сообшении
 
 var ws;
 var mainName;
@@ -23,6 +24,9 @@ var newKeySend = false;
 var newKeySender = "";
 var publicKeysCount = 0;
 var sendKeysCount = 0;
+
+var soundMessage = new Audio('sound/message.mp3');
+var soundOnline = new Audio('sound/online.mp3');
 
 function getRandStr() {
 	return Math.random().toString(36).slice(-10);
@@ -84,12 +88,19 @@ function addToChat(mclass, text, cb = false) { // Добавление стро�
 	(cb) ? cbText = "<div class='cb'></div>" : cbText = "";
 	get('chat').innerHTML += "<div><div class='" + mclass + "'>" + text + "<div class='time'>" + getFormattedDate() + "</div></div></div>" + cbText;
 }
+window.onbeforeunload = function(e) {
+	var dialogText = "После обновления страницы Вы будете отключены от чата. Продолжить?";
+	e.returnValue = dialogText;
+	return dialogText;
+}
 window.onload = function() { // Функция выполняется после полной загрузки страницы
 	// Генерируем имя и устанавливаем остальные параметры
 	mainName = getRandStr(); 
 	get('name').innerHTML = mainName;
 	mainRoom = get('room').value;
 	mainKey = get('key').value;
+
+	
 	// Фикс нажатия кнопки enter в чате на мобильных устройствах.
 	var ta = get('text');
 	var taVal = ta.value;
@@ -128,7 +139,10 @@ function connect(reConn) {
 				addToChat('n', "Вы вошли в чат, комната - " + mainRoom);
 			} else {
 				countRoom++;
-				addToChat('w', "Пользователь " + '"' + msg[2] + '"' + " вошел в комнату - " + mainRoom);
+				addToChat('w', "Пользователь " + '"<a href="javascript://" onclick="reply(' + "'" + msg[2] + "'" + ');return false;">' + msg[2] + '</a>"' + " вошел в комнату - " + mainRoom);
+				if (playSounds) {
+					soundOnline.play();
+				}
 			}
 			scroll();
 		}
@@ -156,7 +170,7 @@ function connect(reConn) {
 		}
 		if (msg[0] == "reAskUserCount") { 
 			// Сервер просит нас переспросить у него количество пользователей в комнате
-			// Сервер не знает кто конкретно отключился т.к. не хранит имена, но знает, что количество пользователей в комнате уменьшилось на одного
+			// Cервер не знает кто конкретно отключился т.к. не хранит имена, но знает что количество пользователей в комнате уменьшилось на одного
 			ws.send(mainRoom + ":getUserCount");
 		}
 		if (msg[1] == "sendMessage") { 
@@ -202,7 +216,10 @@ function connect(reConn) {
 							if (uc[1] == mainName) {
 								newKeys[msg[2]] = code(uc[2], (Number(privateKey) + Number(publicKey)).toString(), false); // Расшифровываем новый ключ шифрования и кладем его в массив
 								clearKeys();
-								addToChat('e', "Пользователь " + '"' + msg[2] + '"' + " предлогает обновить ключ шифрования: <a class='chat-button' href='javascript://' onclick='applyKey(" + '"' + msg[2] + '"' + ");return false;'>Принять</a>"); // Сообщаем пользователю о том что он может применить этот ключ
+								addToChat('e', "Пользователь " + '"<a href="javascript://" onclick="reply(' + "'" + msg[2] + "'" + ');return false;">' + msg[2] + '</a>"' + " предлогает обновить ключ шифрования: <a class='chat-button' href='javascript://' onclick='applyKey(" + '"' + msg[2] + '"' + ");return false;'>Принять</a>"); // Сообщаем пользователю о том что он может применить этот ключ
+								if (playSounds) {
+									soundMessage.play();
+								}
 							}
 						}
 					} else { // Получаем сообщение
@@ -210,7 +227,10 @@ function connect(reConn) {
 						if (msg[2] == mainName) {
 							addToChat('mt', "<b>Вы</b>: " + decodeText, true);
 						} else {
-							addToChat('mr', "<b>" + msg[2] + "</b>: " + decodeText, true);
+							addToChat('mr', "<b><a href='javascript://' onclick='reply(" + '"' + msg[2] + '"' + ");return false;'>" + msg[2] + "</a></b>: " + decodeText, true);
+							if (playSounds) {
+								soundMessage.play();
+							}
 						}
 					}
 				}
@@ -283,6 +303,9 @@ function applyKey(userName) { // Применяем новый ключ шифр
 		get('key').value = mainKey;
 		addToChat('w', "Ключ шифрования изменен.");
 	}
+}
+function reply(name) {
+	get('text').value = name + ", " + get('text').value ;
 }
 function send() { // Отправка сообщений
 	var room = get('room').value;
