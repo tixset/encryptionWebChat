@@ -81,15 +81,11 @@ body {
 	display:table;
 }
 #chat .text {
-	display:table-cell;
 	width: 100%;
 }
 #chat .time {
 	font-size: 8pt;
 	margin-top: 5px;
-	width: 90px;
-	min-width: 90px;
-	vertical-align: bottom;
 	word-break: normal;
 }
 #chat .keys {
