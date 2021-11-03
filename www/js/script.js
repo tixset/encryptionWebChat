@@ -127,14 +127,14 @@ function connect(reConn) {
 	ws.onopen = function(evt) { // Успешно подключились
 		addToChat('n', "Соединение установлено.");
 		mainRoom = get('room').value;
-		ws.send(mainRoom + ":enterRheRoom:" + mainName);
+		ws.send(mainRoom + ":enterTheRoom:" + mainName);
 		isErr = false;
 		isConnect = true;
 		reConnect = 0;
 	}
 	ws.onmessage = function(evt) { // Получаем текст
 	msg = evt.data.split(":");
-		if (msg[1] == "enterRheRoom") { // Кто-то вошел в комнату
+		if (msg[1] == "enterTheRoom") { // Кто-то вошел в комнату
 			if (msg[2] == mainName) {
 				addToChat('n', "Вы вошли в чат, комната - " + mainRoom);
 			} else {
@@ -274,7 +274,7 @@ function changeRoom() { // Переходим в другую комнату
 		mainRoom = get('room').value;
 		if (isConnect) {
 			ws.send(oldRoom + ":exitTheRoom:" + mainName); // В предыдущую комнату отправляем сообщение о том что вышли из нее
-			ws.send(mainRoom + ":enterRheRoom:" + mainName);
+			ws.send(mainRoom + ":enterTheRoom:" + mainName);
 		}
 	}
 }
@@ -316,7 +316,7 @@ function send() { // Отправка сообщений
 			if (room != mainRoom) { // Если изменил комнату но не нажал соответствующую кнопку, то при отправке сообщения мы всеравно ее сменим ))
 				ws.send(mainRoom + ":exitTheRoom:" + mainName); // В предыдущую комнату отправляем сообщение о том что вышли из нее
 				mainRoom = room;
-				ws.send(mainRoom + ":enterRheRoom:" + mainName);
+				ws.send(mainRoom + ":enterTheRoom:" + mainName);
 			}
 			ws.send(mainRoom + ':sendMessage:' + mainName + ':' + code(escapeHtml(text.trim()), mainKey, true)); // Отправляем зашифрованное сообщение
 		}
