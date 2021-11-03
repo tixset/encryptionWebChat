@@ -84,7 +84,7 @@ tcp_server(undef, $socketPort, sub {
 					$receiveStr = substr($receiveStr,0 , $messageMaxLength);
 				}
 				my $groupCount = sendInGroup($receiveArr[0], $receiveStr, $frame); # Отправляем текст всем в группе
-				if (($receiveArr[1] eq "enterRheRoom") or ($receiveArr[1] eq "getUserCount")) {
+				if (($receiveArr[1] eq "enterTheRoom") or ($receiveArr[1] eq "getUserCount")) {
 					$handle->push_write($frame->new("userCount:${groupCount}")->to_bytes); # Сообщаем клиенту количество пользователей в комнате
 				}
 
