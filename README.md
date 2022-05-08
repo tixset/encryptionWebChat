@@ -66,7 +66,7 @@ perl server.pl
 ``` bash
 /home/`whoami`/encryptionWebChat/start_server.sh
 ```
-Если Вы не хотите скрыть вывод текстовой информации на сервере то можете просто дописать " > /dev/null 2>&1 &" в конец строки:
+Если Вы хотите скрыть вывод текстовой информации на сервере то можете просто дописать " > /dev/null 2>&1 &" в конец строки:
 ``` bash
 /home/`whoami`/encryptionWebChat/start_server.sh > /dev/null 2>&1 &
 ```
@@ -147,7 +147,7 @@ In certain situations, the server may crash with an error, for this I created a 
 ``` bash
 /home/`whoami`/encryptionWebChat/start_server.sh
 ```
-If you don't want to hide the output of text information on the server, you can simply add " > /dev/null 2>&1 &" to the end of the line:
+If you want to hide the output of text information on the server, you can simply add " > /dev/null 2>&1 &" to the end of the line:
 ``` bash
 /home/`whoami`/encryptionWebChat/start_server.sh > /dev/null 2>&1 &
 ```
